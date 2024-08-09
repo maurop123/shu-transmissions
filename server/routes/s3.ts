@@ -1,0 +1,16 @@
+import { S3Client, ListObjectsCommand } from '@aws-sdk/client-s3'
+
+export default defineEventHandler(async () => {
+  const client = new S3Client({
+    region: 'us-east-2',
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET
+    }
+  })
+  const command = new ListObjectsCommand({
+    Bucket: 'luna-channeling',
+  })
+
+  return client.send(command)
+})
