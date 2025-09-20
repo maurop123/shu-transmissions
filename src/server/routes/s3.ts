@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
     }
   })
   const command = new ListObjectsCommand({
-    Bucket: 'luna-channeling',
+    Bucket: process.env.S3_BUCKET,
   })
 
   return client.send(command)

@@ -1,4 +1,15 @@
-# Nuxt Example
+# Transmissions
+
+Webpage for seeing Shu channelings.
+
+## Dev Notes
+
+Upload functionality returning 500. May deprecate
+
+S3 files should be stored "{uri}/{date}/{time}/{filename}"
+e.g. ".../25-09-17/11.14.39/transmission.mp4"
+
+## Nuxt Example
 
 Deploy your [Nuxt](https://nuxt.com) project to Vercel with zero configuration.
 

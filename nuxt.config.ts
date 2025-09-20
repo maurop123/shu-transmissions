@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   routeRules: {
     // prerender index route by default
-    '/': { prerender: true },
+    "/": { prerender: true },
   },
+  modules: ["@pinia/nuxt"],
+  srcDir: "src",
 });
