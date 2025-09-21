@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 const route = useRoute()
 
 // Get S3 bucket contents
@@ -24,20 +25,26 @@ const pageItems = contentKeys.reduce((arr, key) => {
 const s3BucketURI = `https://${process.env.NUXT_PUBLIC_S3_BUCKET}.s3.us-east-2.amazonaws.com`;
 const transmissionAudio = pageItems.filter(x => x.indexOf('transmission') > -1)[0]
 const transcriptText = pageItems.filter(x => x.indexOf('transcript') > -1)[0]
-console.debug(transmissionAudio)
-console.debug(transcriptText)
+
+const resp = await useFetch("/getTranscript", {
+  method: 'POST',
+  body: transcriptText
+});
+console.debug('s4 resp', resp.data)
+const transcript = resp.data
+
 </script>
 
 <template>
-  <h1>Transmission: {{transmissionAudio.split('/').slice(0,-1).join(' ')}}</h1>
-  <div>
+  <h1>Transmission: {{transmissionAudio.replaceAll('.',':').split('/').slice(0,-1).join(' ')}}</h1>
+  <div style="margin-top:30px">
     <audio controls>
       <source :src="`${s3BucketURI}/${transmissionAudio}`" type="audio/mp4" />
       <!-- fallback -->
       <p>Your browser does not support 'audio/mp4'</p>
     </audio>
   </div>
-  <div>
-    <a :href="`${s3BucketURI}/${transcriptText}`">text</a>
+  <div style="margin-top:30px">
+    {{transcript}}
   </div>
 </template>

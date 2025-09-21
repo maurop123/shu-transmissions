@@ -1,6 +1,6 @@
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (ev) => {
   const client = new S3Client({
     region: 'us-east-2',
     credentials: {
@@ -8,9 +8,11 @@ export default defineEventHandler(async () => {
       secretAccessKey: process.env.S3_SECRET
     }
   })
-  const command = new ListObjectsCommand({
+  const command = new GetObjectCommand({
     Bucket: process.env.S3_BUCKET,
+    Key: ev.req.body
   })
 
-  return client.send(command)
+  const { Body } = await client.send(command)
+  return await Body.transformToString()
 })
