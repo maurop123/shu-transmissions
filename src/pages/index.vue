@@ -19,7 +19,7 @@ const reducedKeys = contentKeys.reduce((arr, key) => {
     return arr.concat({id,key:newKey})
   }
   else return arr
-}, [])
+}, []).reverse()
 
 // For file upload
 /*
