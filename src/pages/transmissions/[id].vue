@@ -30,7 +30,6 @@ const resp = await useFetch("/getTranscript", {
   method: 'POST',
   body: transcriptText
 });
-console.debug('s4 resp', resp.data)
 const transcript = resp.data
 
 </script>
