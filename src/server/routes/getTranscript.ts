@@ -10,7 +10,7 @@ export default defineEventHandler(async (ev) => {
   })
   const command = new GetObjectCommand({
     Bucket: process.env.S3_BUCKET,
-    Key: ev.req.body
+    Key: 'transmissions/' + ev.req.body
   })
 
   const { Body } = await client.send(command)

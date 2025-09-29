@@ -9,6 +9,8 @@ const contentKeys = Contents.map((x) => x.Key);
 
 const pageItems = contentKeys.reduce((arr, key) => {
   const split = key.split('/').filter(x => x !== '')
+  split.shift()
+  console.debug(split)
   if (split.length === 3) {
     const id = ''.concat(
       split[0].replaceAll('-', ''),
@@ -22,7 +24,7 @@ const pageItems = contentKeys.reduce((arr, key) => {
   return arr
 }, [])
 
-const s3BucketURI = `https://${process.env.NUXT_PUBLIC_S3_BUCKET}.s3.us-east-2.amazonaws.com`;
+const s3BucketURI = `https://${process.env.NUXT_PUBLIC_S3_BUCKET}.s3.us-east-2.amazonaws.com/transmissions`;
 /* const s3BucketURI = `https://luna-channels.s3.us-east-2.amazonaws.com`; */
 const transmissionAudio = pageItems.filter(x => x.indexOf('transmission') > -1)[0]
 const transcriptText = pageItems.filter(x => x.indexOf('transcript.txt') > -1)[0]

@@ -5,11 +5,13 @@
 const { data } = await useFetch("/s3");
 const { Contents } = data.value;
 const contentKeys = Contents.map((x) => x.Key);
+console.debug(contentKeys)
 //Data manip of contentKeys
 //depends on consistent data structure of S3 file storage
 //see README for notes on data struct
 const reducedKeys = contentKeys.reduce((arr, key) => {
   const split = key.split('/').filter(x => x !== '')
+  split.shift()
   if (split.length === 3 && split[2].indexOf('transmission') > -1) {
     const id = ''.concat(
       split[0].replaceAll('-', ''),
