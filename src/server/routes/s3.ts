@@ -10,6 +10,7 @@ export default defineEventHandler(async () => {
   })
   const command = new ListObjectsCommand({
     Bucket: process.env.S3_BUCKET,
+    Key: 'transmissions'
   })
 
   return client.send(command)

@@ -23,8 +23,9 @@ const pageItems = contentKeys.reduce((arr, key) => {
 }, [])
 
 const s3BucketURI = `https://${process.env.NUXT_PUBLIC_S3_BUCKET}.s3.us-east-2.amazonaws.com`;
+/* const s3BucketURI = `https://luna-channels.s3.us-east-2.amazonaws.com`; */
 const transmissionAudio = pageItems.filter(x => x.indexOf('transmission') > -1)[0]
-const transcriptText = pageItems.filter(x => x.indexOf('transcript') > -1)[0]
+const transcriptText = pageItems.filter(x => x.indexOf('transcript.txt') > -1)[0]
 
 const resp = await useFetch("/getTranscript", {
   method: 'POST',
@@ -38,7 +39,7 @@ const transcript = resp.data
   <h1>Transmission: {{transmissionAudio.replaceAll('.',':').split('/').slice(0,-1).join(' ')}}</h1>
   <div style="margin-top:30px">
     <audio controls>
-      <source :src="`${s3BucketURI}/${transmissionAudio}`" type="audio/mp4" />
+      <source :src="`${s3BucketURI}/${transmissionAudio}`" type="audio/mp3" />
       <!-- fallback -->
       <p>Your browser does not support 'audio/mp4'</p>
     </audio>
